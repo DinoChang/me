@@ -92,7 +92,7 @@
         .btn-maximize { background: #27ca40; }
 
         .terminal-title {
-            color: #888;
+            color: #aaa;
             font-size: 13px;
             flex: 1;
             text-align: center;
@@ -147,6 +147,18 @@
             color: #b0b0b0;
         }
 
+        .value {
+            color: #e0e0e0;
+        }
+
+        .half-star {
+            display: inline-block;
+            background: linear-gradient(90deg, var(--text-dim) 50%, #555 50%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
         .highlight {
             color: var(--warning-color);
         }
@@ -186,7 +198,7 @@
         }
 
         .exp-desc {
-            color: var(--text-dim);
+            color: #c0c0c0;
             font-size: 13px;
         }
 
@@ -336,7 +348,20 @@
             class: '後端工程師',
             specialty: '.NET 系',
             passive: 'Debug 體質',
-            skills: ['.NET Core', 'C#', 'TypeScript', 'Python', 'Git', 'Docker', 'MSSQL', 'PostgreSQL', 'RESTful API'],
+            skills: [
+                { name: '.NET Core', level: 5 },
+                { name: 'C#', level: 5 },
+                { name: 'TypeScript', level: 4 },
+                { name: 'Python', level: 3 },
+                { name: 'Git', level: 4.5 },
+                { name: 'Docker', level: 4.5 },
+                { name: 'MSSQL', level: 4 },
+                { name: 'PostgreSQL', level: 3.5 },
+                { name: 'RESTful API', level: 4 },
+                { name: 'Claude Code', level: 4.5 },
+                { name: 'GitHub Copilot', level: 4 },
+                { name: 'Prompt Engineering', level: 4 }
+            ],
             experience: [
                 { title: '醫療資訊系統', desc: '讓掛號批價不再是迷宮', tech: '.NET Core, MSSQL' },
                 { title: '客戶管理系統', desc: '幫業務記住每一位金主', tech: 'C#, PostgreSQL' },
@@ -382,10 +407,10 @@
 <pre class="ascii-art">${ASCII_LOGO}</pre>
 
 <span class="highlight">╭─────────────────────────────────────╮</span>
-<span class="highlight">│</span>  <span class="cyan">Name:</span>     ${PROFILE.name}
-<span class="highlight">│</span>  <span class="cyan">Class:</span>    ${PROFILE.class}
-<span class="highlight">│</span>  <span class="cyan">Spec:</span>     ${PROFILE.specialty}
-<span class="highlight">│</span>  <span class="cyan">Passive:</span>  ${PROFILE.passive}
+<span class="highlight">│</span>  <span class="cyan">Name:</span>     <span class="value">${PROFILE.name}</span>
+<span class="highlight">│</span>  <span class="cyan">Class:</span>    <span class="value">${PROFILE.class}</span>
+<span class="highlight">│</span>  <span class="cyan">Spec:</span>     <span class="value">${PROFILE.specialty}</span>
+<span class="highlight">│</span>  <span class="cyan">Passive:</span>  <span class="value">${PROFILE.passive}</span>
 <span class="highlight">╰─────────────────────────────────────╯</span>
 
 <span class="comment">// 一個熱愛寫 code 也熱愛解 bug 的工程師</span>`;
@@ -397,9 +422,12 @@
                 output += '\n\n<span class="cyan">══════ 技能清單 ══════</span>\n\n';
 
                 PROFILE.skills.forEach(skill => {
-                    const level = Math.floor(Math.random() * 3) + 3; // 3-5 stars
-                    const stars = '★'.repeat(level) + '☆'.repeat(5 - level);
-                    output += `  <span class="skill-tag">${skill}</span> <span class="comment">${stars}</span>\n`;
+                    const fullStars = Math.floor(skill.level);
+                    const hasHalf = skill.level % 1 !== 0;
+                    const emptyStars = 5 - fullStars - (hasHalf ? 1 : 0);
+                    const halfStar = hasHalf ? '<span class="half-star">★</span>' : '';
+                    const stars = '★'.repeat(fullStars) + halfStar + '☆'.repeat(emptyStars);
+                    output += `  <span class="skill-tag">${skill.name}</span> <span class="comment">${stars}</span>\n`;
                 });
 
                 output += '\n<span class="comment">// 技能持續進化中...</span>';
@@ -439,16 +467,18 @@
                 return `
 <pre class="ascii-art">${ASCII_LOGO}</pre>
                          <span class="cyan">dino</span>@<span class="cyan">portfolio</span>
-                         ──────────────
-                         <span class="cyan">OS:</span> Developer OS 2024
-                         <span class="cyan">Host:</span> Full Stack Machine
-                         <span class="cyan">Kernel:</span> .NET Core 8.0
-                         <span class="cyan">Shell:</span> bash 5.0
-                         <span class="cyan">Resolution:</span> 無限 x 無限
-                         <span class="cyan">DE:</span> Backend Paradise
-                         <span class="cyan">CPU:</span> Brain @ 3.0GHz (咖啡加速)
-                         <span class="cyan">Memory:</span> 8GB / ∞ (Stack Overflow)
-                         <span class="cyan">Disk:</span> 經驗值 99999+
+                         <span class="value">──────────────</span>
+                         <span class="cyan">OS:</span> <span class="value">Developer OS 2024</span>
+                         <span class="cyan">Host:</span> <span class="value">Full Stack Machine</span>
+                         <span class="cyan">Kernel:</span> <span class="value">.NET Core 10.0</span>
+                         <span class="cyan">Shell:</span> <span class="value">bash 5.0</span>
+                         <span class="cyan">Resolution:</span> <span class="value">無限 x 無限</span>
+                         <span class="cyan">DE:</span> <span class="value">Backend Paradise</span>
+                         <span class="cyan">CPU:</span> <span class="value">Brain @ 3.0GHz (咖啡加速)</span>
+                         <span class="cyan">GPU:</span> <span class="value">Claude Code + GitHub Copilot</span>
+                         <span class="cyan">Memory:</span> <span class="value">8GB / ∞ (Stack Overflow)</span>
+                         <span class="cyan">Disk:</span> <span class="value">經驗值 99999+</span>
+                         <span class="cyan">AI:</span> <span class="value">AI Coding 實踐者</span>
 
                          <span style="color:#ff5555">███</span><span style="color:#ffbd2e">███</span><span style="color:#27ca40">███</span><span style="color:#00ffff">███</span><span style="color:#bd93f9">███</span><span style="color:#ff79c6">███</span>`;
             },
@@ -487,26 +517,26 @@
 
             ls: () => {
                 return `
-<span class="cyan">drwxr-xr-x</span>  skills/
-<span class="cyan">drwxr-xr-x</span>  experience/
-<span class="cyan">drwxr-xr-x</span>  contact/
-<span class="cyan">-rw-r--r--</span>  README.md
-<span class="cyan">-rw-r--r--</span>  .coffee_addiction
-<span class="cyan">-rw-r--r--</span>  .debug_mode_on`;
+<span class="cyan">drwxr-xr-x</span>  <span class="value">skills/</span>
+<span class="cyan">drwxr-xr-x</span>  <span class="value">experience/</span>
+<span class="cyan">drwxr-xr-x</span>  <span class="value">contact/</span>
+<span class="cyan">-rw-r--r--</span>  <span class="value">README.md</span>
+<span class="cyan">-rw-r--r--</span>  <span class="value">.coffee_addiction</span>
+<span class="cyan">-rw-r--r--</span>  <span class="value">.debug_mode_on</span>`;
             },
 
             cat: (args) => {
                 if (args.includes('README') || args.includes('readme')) {
                     return `
-# Dino - Full Stack Developer
+<span class="highlight"># Dino - Full Stack Developer</span>
 
-> "Write code, fix bugs, repeat."
+<span class="value">> "Write code, fix bugs, repeat."</span>
 
-歡迎來到我的終端機履歷！
-輸入 \`help\` 查看所有可用指令。`;
+<span class="value">歡迎來到我的終端機履歷！</span>
+<span class="value">輸入</span> <span class="cyan">\`help\`</span> <span class="value">查看所有可用指令。</span>`;
                 }
                 if (args.includes('.coffee')) {
-                    return '<span class="warning">☕ 咖啡因濃度: ████████░░ 80%</span>';
+                    return '<span class="highlight">☕ 咖啡因濃度: ████████░░ 80%</span>';
                 }
                 if (args.includes('.debug')) {
                     return '<span class="success">🐛 Debug 模式: 永遠開啟</span>';
@@ -516,13 +546,13 @@
 
             ping: (args) => {
                 return `
-PING ${args[0] || 'google.com'} 56 data bytes
-64 bytes: icmp_seq=1 ttl=64 time=<span class="success">超快</span>
-64 bytes: icmp_seq=2 ttl=64 time=<span class="success">還是很快</span>
-64 bytes: icmp_seq=3 ttl=64 time=<span class="success">依然快</span>
+<span class="value">PING ${args[0] || 'google.com'} 56 data bytes</span>
+<span class="value">64 bytes: icmp_seq=1 ttl=64 time=</span><span class="success">超快</span>
+<span class="value">64 bytes: icmp_seq=2 ttl=64 time=</span><span class="success">還是很快</span>
+<span class="value">64 bytes: icmp_seq=3 ttl=64 time=</span><span class="success">依然快</span>
 
---- ping statistics ---
-我的回覆速度也這麼快！`;
+<span class="value">--- ping statistics ---</span>
+<span class="value">我的回覆速度也這麼快！</span>`;
             },
 
             coffee: () => {
@@ -541,12 +571,10 @@ PING ${args[0] || 'google.com'} 56 data bytes
 
             hack: () => {
                 return `
-<span class="success">
-正在入侵...
+<span class="success">正在入侵...
 [▓▓▓▓▓▓▓▓▓▓] 100%
 
-開玩笑的啦！我是正派工程師 😄
-</span>`;
+開玩笑的啦！我是正派工程師 😄</span>`;
             },
 
             '42': () => '<span class="cyan">生命、宇宙以及任何事情的終極答案。</span>',
@@ -559,13 +587,13 @@ PING ${args[0] || 'google.com'} 56 data bytes
 
             date: () => `<span class="cyan">${new Date().toLocaleString('zh-TW')}</span>`,
 
-            echo: (args) => args.join(' ') || '',
+            echo: (args) => `<span class="value">${args.join(' ') || ''}</span>`,
 
             man: () => '<span class="comment">試試 help 指令吧！</span>',
 
             cd: () => '<span class="comment">你已經在最好的目錄了 ~</span>',
 
-            pwd: () => '/home/dino/portfolio',
+            pwd: () => '<span class="value">/home/dino/portfolio</span>',
 
             vim: () => '<span class="error">:q! ... 等等，這不是 vim</span>',
             nano: () => '<span class="comment">推薦用 VSCode 或 Rider 啦</span>',
