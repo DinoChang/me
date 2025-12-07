@@ -18,7 +18,7 @@
             --bg-color: #0a0a0a;
             --terminal-bg: #1a1a1a;
             --text-color: #00ff00;
-            --text-dim: #00aa00;
+            --text-dim: #a8d8a8;
             --text-bright: #00ff00;
             --accent-color: #00ffff;
             --error-color: #ff5555;
@@ -141,6 +141,10 @@
 
         .comment {
             color: var(--text-dim);
+        }
+
+        .desc {
+            color: #b0b0b0;
         }
 
         .highlight {
@@ -362,13 +366,13 @@
                 return `
 <span class="highlight">可用指令 Available Commands:</span>
 
-  <span class="cyan">whoami</span>      顯示基本資訊
-  <span class="cyan">skills</span>      查看技能樹
-  <span class="cyan">experience</span>  查看打怪紀錄
-  <span class="cyan">contact</span>     傳送門（聯絡方式）
-  <span class="cyan">neofetch</span>    系統資訊
-  <span class="cyan">clear</span>       清除畫面
-  <span class="cyan">help</span>        顯示此說明
+  <span class="cyan">whoami</span>      <span class="desc">顯示基本資訊</span>
+  <span class="cyan">skills</span>      <span class="desc">查看技能樹</span>
+  <span class="cyan">experience</span>  <span class="desc">查看打怪紀錄</span>
+  <span class="cyan">contact</span>     <span class="desc">傳送門（聯絡方式）</span>
+  <span class="cyan">neofetch</span>    <span class="desc">系統資訊</span>
+  <span class="cyan">clear</span>       <span class="desc">清除畫面</span>
+  <span class="cyan">help</span>        <span class="desc">顯示此說明</span>
 
 <span class="comment">提示：試試看有沒有隱藏指令？</span>`;
             },
